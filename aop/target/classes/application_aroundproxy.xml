@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="advice" class="AroundProxyAdvice"></bean>
+    <bean id="dosome" class="DoSomeServiceImpl"></bean>
+
+    <bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyTargetClass" value="true"/>
+        <property name="interceptorNames" value="advice"/> <!--如果用多种增强方式,value的值使用逗号(,)分割-->
+        <property name="target" ref="dosome"/>
+    </bean>
+</beans>
